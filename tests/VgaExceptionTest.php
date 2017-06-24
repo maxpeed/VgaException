@@ -33,8 +33,6 @@ class VgaExceptionTest extends TestCase
     public function testOutputOfException () {
 
 
-
-
     }
 
     public function testOutputFromStackedExceptions (){

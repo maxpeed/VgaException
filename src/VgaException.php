@@ -17,12 +17,14 @@ class VgaException extends VgaExceptionType
      */
     public function toPrintableString(): string
     {
-        $string =
+        return sprintf(
             "VgaException thrown." . PHP_EOL
-            . "File: " . $this->getFile() . PHP_EOL
-            . "Line: " . $this->getLine() . PHP_EOL
-            . "Description: " . $this->getMessage() . PHP_EOL;
-
-        return $string;
+            . "File: %s" . PHP_EOL
+            . "Line: %s" . PHP_EOL
+            . "Description: %s" . PHP_EOL,
+            $this->getFile(),
+            $this->getLine(),
+            $this->getMessage()
+        );
     }
 }

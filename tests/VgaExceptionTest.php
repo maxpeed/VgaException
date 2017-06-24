@@ -5,9 +5,11 @@
 
 namespace VgaDatabase\Exceptions\Tests;
 
+use PHPUnit\Exception;
 use \VgaException\VgaException;
 
 use PHPUnit\Framework\TestCase;
+use VgaException\VgaExceptionType;
 
 class VgaExceptionTest extends TestCase
 {
@@ -30,12 +32,77 @@ class VgaExceptionTest extends TestCase
         throw new VgaException($message, $errorCode, $previousException);
     }
 
-    public function testOutputOfException () {
 
+    /**
+     * Test that we get output.
+     *
+     * @depends testIsExceptionThrown
+     */
+    public function testOutputOfException()
+    {
+
+        $stringStart = "VgaException thrown.";
+        $output = "This Fails";
+
+        try {
+            $message = "Exception Test";
+            $errorCode = 1;
+
+            throw new VgaException($message, $errorCode);
+        } catch (VgaExceptionType $vgaException) {
+            $output = $vgaException->toPrintableString();
+        }
+
+        $this->assertStringStartsWith($stringStart, $output);
+    }
+
+    /**
+     * Throw two exceptions in chain.
+     * Check if we get output from all exceptions.
+     *
+     * @depends testIsExceptionThrown
+     */
+    public function testStackedExceptions()
+    {
+        $amountInChain = 3;
+        $className = VgaExceptionType::class;
+
+        for (
+            $i = $amountInChain, $currentException = $this->throwExceptions($amountInChain);
+            $i > 0;
+            $i--) {
+
+            $this->assertTrue(is_a($currentException, $className));
+            $currentException = $currentException->getPreviousVgaException();
+        };
 
     }
 
-    public function testOutputFromStackedExceptions (){
+    /**
+     * Create a chain of exceptions
+     *
+     * @param $amountInChain
+     * @return VgaExceptionType
+     */
+    private function throwExceptions($amountInChain): VgaExceptionType
+    {
+        $currentException = null;
 
+        for ($i = $amountInChain; $i > 0; $i--) {
+            $message = "Exception $i";
+            $errorCode = $i;
+            $prevException = $currentException;
+
+            try {
+                throw new VgaException($message, $errorCode, $prevException);
+            } catch (VgaException $vgaException) {
+                $currentException = $vgaException;
+            }
+
+        }
+
+        return $currentException;
     }
+
+
 }

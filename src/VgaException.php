@@ -3,9 +3,9 @@
  * Created: 2017-06-24 16:43
  */
 
-namespace VgaException;
+namespace Vgait\VgaException;
 
-use VgaException\VgaExceptionType;
+use Vgait\VgaException\VgaExceptionType;
 
 class VgaException extends VgaExceptionType
 {

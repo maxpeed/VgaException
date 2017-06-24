@@ -5,11 +5,10 @@
 
 namespace VgaDatabase\Exceptions\Tests;
 
-use PHPUnit\Exception;
-use \VgaException\VgaException;
-
 use PHPUnit\Framework\TestCase;
-use VgaException\VgaExceptionType;
+use Vgait\VgaException\VgaException;
+use Vgait\VgaException\VgaExceptionType;
+
 
 class VgaExceptionTest extends TestCase
 {
@@ -21,7 +20,7 @@ class VgaExceptionTest extends TestCase
     public function testIsExceptionThrown()
     {
         // Set the expected behaviour for exceptions
-        $this->expectException("\VgaException\VgaExceptionType");
+        $this->expectException(VgaExceptionType::class);
 
         // Params
         $message = "VgaException is thrown";

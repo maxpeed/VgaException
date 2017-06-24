@@ -3,7 +3,7 @@
  * Created: 2017-02-19 16:46
  */
 
-namespace VgaException;
+namespace Vgait\VgaException;
 
 use Exception;
 

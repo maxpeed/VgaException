@@ -19,12 +19,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "VgaException\\": "src/"
+            "Vgait\\VgaException\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VgaException\\Tests\\": "tests/"
+            "Vgait\\VgaException\\Tests\\": "tests/"
         }
     }
 

@@ -12,8 +12,20 @@
     "authors": [
         {
             "name": "Henrik Hansen",
-            "email": "henrik@vgait.se"
+            "email": "henrik@vgait.se",
+            "homepage": "http://www.vgait.se/",
+            "role": "The Boss"
         }
     ],
-    "minimum-stability": "dev"
+    "autoload": {
+        "psr-4": {
+            "VgaException\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VgaException\\Tests\\": "tests/"
+        }
+    }
+
 }

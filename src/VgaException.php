@@ -1,66 +1,27 @@
 <?php
 /**
- * Created: 2017-02-19 16:46
+ * Created: 2017-06-24 16:43
  */
 
-namespace VgaDatabase\Exceptions;
+namespace VgaException;
 
-use Exception;
+use VgaException\VgaExceptionType;
 
-abstract class VgaException extends Exception
+class VgaException extends VgaExceptionType
 {
-
-    /** @var VgaException */
-    protected $previousVgaException = null;
-
-    /**
-     * VgaDatabaseException constructor.
-     *
-     * @param string $message Description of exception
-     * @param VgaException|null $previousException
-     */
-    public function __construct(string $message = "", VgaException $previousException = null)
-    {
-        $this->previousVgaException = $previousException;
-
-        parent::__construct($message);
-    }
 
     /**
      * Return a printable string that represents this error.
      *
      * @return string
      */
-    abstract public function toPrintableString(): string;
-
-    /**
-     * Return the prevoius VgaException
-     *
-     * @return VgaException|null
-     */
-    public function getPreviousInStack()
+    public function toPrintableString(): string
     {
-        if (!empty($this->previousVgaException)) {
-            return $this->previousVgaException;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * Returns a printable string that represents all errors in stack
-     *
-     * @return string
-     */
-    public function fullStackToPrintableString(): string
-    {
-        $currentExeption = $this;
-        $string = "";
-
-        do {
-            $string .= $currentExeption->toPrintableString();
-            $currentExeption = $currentExeption->getPreviousInStack();
-        } while (!empty($currentExeption));
+        $string =
+            "VgaException thrown." . PHP_EOL
+            . "File: " . $this->getFile() . PHP_EOL
+            . "Line: " . $this->getLine() . PHP_EOL
+            . "Description: " . $this->getMessage() . PHP_EOL;
 
         return $string;
     }
